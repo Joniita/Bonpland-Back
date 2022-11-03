@@ -31,4 +31,5 @@ contractType
 availability 
 image
 prominent
+
 */ 
