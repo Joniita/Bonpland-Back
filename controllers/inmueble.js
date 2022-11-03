@@ -47,9 +47,36 @@ let controller = {
         })
 
 
+    },
+
+    uploadImage: function(req, res){
+        let propertyId = req.params.id;
+        let fileName = "Imagen no subida.";
+
+        if(req.files){
+            let filePath = req.files.image.path;
+            let fileSplit = filePath.split("\\");
+            let fileName = fileSplit[1];
+            let extSplit = fileName.split(".");
+            let fileExt = extSplit.at(-1);
+
+            if(fileExt == "png" || fileExt == "jpg" || fileExt == "jpeg" || fileExt == "gif"){
+                Property.findByIdAndUpdate(propertyId, {image: fileName}, {new: true}, (err, propertyUpdate) =>{
+                    if(err) return res.status(500).send({ message: "Error al subir archivo." });
+                    if(!propertyUpdate) return res.status(404).send({ message: "No se encontró archivo para subir." });
+    
+                    return res.status(200).send({ property: propertyUpdate });
+                });
+            }else{
+                fs.unlink(filePath, (err) =>{
+                    return res.status(200).send({ message: "La extención del archivo no es válida" });
+                });
+            };
+            
+        }else{
+            return res.status(200).send({ message: fileName });
+        };
     }
-
-
 
 };
 
