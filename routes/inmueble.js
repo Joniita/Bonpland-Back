@@ -12,5 +12,6 @@ router.get('/', PropertyController.getProperties);
 router.get('/:id', PropertyController.getProperty);
 router.post('/save-property', PropertyController.saveProperty);
 router.post("/upload-image/:id", multipartMiddleware, PropertyController.uploadImage);
+router.put('/property/:id', PropertyController.updateProperty);
 
 module.exports = router;
