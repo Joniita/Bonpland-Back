@@ -76,6 +76,17 @@ let controller = {
         }else{
             return res.status(200).send({ message: fileName });
         };
+    },
+
+    updateProperty: function(req, res) {
+        let propertyId = req.params.id;
+        let update = req.body;
+
+        Property.findByIdAndUpdate(propertyId, update, {new:true}, (err, propertyUpdated) => {
+            if(err) return res.status(500).send({ message: "Error al actualizar."});
+            if(!propertyUpdated) return res.status(404).send({ message: "No existe la propiedad para actualizar"});
+            return res.status(200).send({ propertyUpdated })
+        })
     }
 
 };
