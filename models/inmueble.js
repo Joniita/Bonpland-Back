@@ -7,6 +7,8 @@ let PropertySchema = Schema({
     reference: Number,
     rooms: Number,
     area: Number,
+    covered: Number,
+    toilets: Number,
     price: Number,
     country: String,
     city: String,
