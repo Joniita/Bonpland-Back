@@ -1,18 +1,19 @@
 'use strict'
-
+require('dotenv').config();
 let mongoose = require('mongoose');
 let app = require('./app');
-let port = 3500;
+const PORT = process.env.PORT || 3500;
+const connectionString = process.env.MONGO_DB_URI;
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://jonadev:987654321@clusterbonpland.xtzbl31.mongodb.net/bonplandDB?retryWrites=true&w=majority')
+mongoose.connect(connectionString)
         .then(() => {
             console.log('Conexión a la base de datos establecida con éxito');
 
             // Crear servidor
 
-            app.listen(port, () => {
+            app.listen(PORT, () => {
                 console.log('Servidor corriendo')
             })
         })
