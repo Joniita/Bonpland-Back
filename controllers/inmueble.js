@@ -87,6 +87,16 @@ let controller = {
             if(!propertyUpdated) return res.status(404).send({ message: "No existe la propiedad para actualizar"});
             return res.status(200).send({ propertyUpdated })
         })
+    },
+
+    deleteProperty: function(req, res) {
+        let propertyId = req.params.id;
+
+        Property.findByIdAndRemove(propertyId, (err, propertyDeleted) => {
+            if(err) return res.status(500).send({ message: "No se ha podido eliminar la propiedad."});
+            if(!propertyDeleted) return res.status(404).send({ message: "No existe la propiedad a eliminar."});
+            return res.status(200).send({ property: propertyDeleted });
+        })
     }
 
 };
